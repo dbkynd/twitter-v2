@@ -63,6 +63,7 @@ class TwitterStream {
                 if (this._state == State.NOT_STARTED) {
                     this._state = State.STARTED;
                     const response = await this._connect();
+                    this._emit(Promise.resolve({ done: false, value: { message: 'connected' } }));
                     const stream = response.body.pipe(split_1.default());
                     this._refreshTimeout();
                     stream.on('data', (line) => {
